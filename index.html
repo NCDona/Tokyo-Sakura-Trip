@@ -220,8 +220,10 @@ const GO=new Date("2027-03-29T06:35:00+08:00"),END=new Date("2027-04-03T23:20:00
 function cd(){const n=new Date(),el=$("cd");
  if(n>END){el.innerHTML="<div><b>🌸</b><small>旅程結束，歡迎回家</small></div>";return}
  if(n>=GO){el.innerHTML="<div><b>✈</b><small>旅程進行中！</small></div>";return}
- let s=Math.floor((GO-n)/1000);const d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);
- el.innerHTML=`<div><b>${d}</b><small>天</small></div><div><b>${h}</b><small>小時</small></div><div><b>${m}</b><small>分鐘</small></div>`;}
+ let mo=(GO.getFullYear()-n.getFullYear())*12+GO.getMonth()-n.getMonth(),t=new Date(n);t.setMonth(t.getMonth()+mo);
+ if(t>GO){mo--;t=new Date(n);t.setMonth(t.getMonth()+mo)}
+ const r=GO-t,d=Math.floor(r/864e5),h=Math.floor(r%864e5/36e5);
+ el.innerHTML=`<div><b>${mo}</b><small>月</small></div><div><b>${d}</b><small>天</small></div><div><b>${h}</b><small>小時</small></div>`;}
 cd();setInterval(cd,30000);
 </script>
 </body>
